@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>スタイル変換WEBアプリ</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <h1>画像スタイル変換WEBアプリ</h1>
+  
+  <div class="description">
+    <p>
+      このアプリは、<strong>画像のスタイル変換</strong>を行うWebツールです。<br>
+      あなたのアップロードした画像に、指定したスタイル画像の見た目を適用し、まるで別の絵画や作品のように変換します。
+    </p>
+    <p>
+      例えば、<em>風景写真</em>をアップロードし、<strong>浮世絵</strong>スタイルを選ぶと、<strong>浮世絵風の風景画</strong>が生成されます。
+    </p>
+    <p>
+      スタイルは、下のラジオボタンから既存のものを選ぶか、ご自身のスタイル画像をアップロードすることもできます。<br>
+      ※ アップロードしたスタイル画像がある場合、そちらが優先されます。
+    </p>
+  </div>
+
+  <form method="POST" enctype="multipart/form-data">
+    <h3>1. 変換したい画像をアップロード</h3>
+    <label class="custom-file-upload">
+      ファイルを選択
+      <input type="file" name="content_image" accept="image/*" required />
+    </label>
+
+    <h3>2. スタイル画像を選択（既存）またはアップロード（任意）</h3>
+    <div class="style-list">
+      {% for filename, display_name in styles.items() %}
+        <label>
+          <input type="radio" name="style_image" value="{{ filename }}" />
+          {{ display_name }}
+        </label>
+      {% endfor %}
+    </div>
+
+    <p>または</p>
+
+    <label class="custom-file-upload">
+      スタイル画像をアップロード
+      <input type="file" name="style_image_upload" accept="image/*" />
+    </label>
+    <p><small>アップロードしたスタイル画像を優先して使用します。</small></p>
+
+    <button type="submit">スタイル変換実行</button>
+  </form>
+
+  {% if content_image %}
+    <h3>アップロード画像</h3>
+    <img src="{{ content_image }}" alt="アップロード画像" />
+  {% endif %}
+
+  {% if style_image %}
+    <h3>使用したスタイル画像</h3>
+    <img src="{{ style_image }}" alt="スタイル画像" />
+  {% endif %}
+
+  {% if output_image %}
+    <h3>変換後の画像</h3>
+    <img src="{{ output_image }}" alt="変換後画像" />
+  {% endif %}
+</body>
+</html>

@@ -1,0 +1,4 @@
+flask
+tensorflow==2.19.0
+tensorflow-hub==0.16.1
+pillow
