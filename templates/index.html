@@ -24,10 +24,11 @@
 
   <form method="POST" enctype="multipart/form-data">
     <h3>1. 変換したい画像をアップロード</h3>
-    <label class="custom-file-upload">
+    <label class="custom-file-upload" id="label_content">
       ファイルを選択
-      <input type="file" name="content_image" accept="image/*" required />
+      <input type="file" name="content_image" accept="image/*" id="content_image_input" required />
     </label>
+    <div id="content_preview"></div>
 
     <h3>2. スタイル画像を選択（既存）またはアップロード（任意）</h3>
     <div class="style-list">
@@ -41,10 +42,12 @@
 
     <p>または</p>
 
-    <label class="custom-file-upload">
+    <label class="custom-file-upload" id="label_style">
       スタイル画像をアップロード
-      <input type="file" name="style_image_upload" accept="image/*" />
+      <input type="file" name="style_image_upload" accept="image/*" id="style_image_input" />
     </label>
+    <div id="style_preview"></div>
+
     <p><small>アップロードしたスタイル画像を優先して使用します。</small></p>
 
     <button type="submit">スタイル変換実行</button>
@@ -64,5 +67,8 @@
     <h3>変換後の画像</h3>
     <img src="{{ output_image }}" alt="変換後画像" />
   {% endif %}
+
+  <!-- プレビュー処理用JavaScript -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
