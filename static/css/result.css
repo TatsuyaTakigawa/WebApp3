@@ -18,7 +18,7 @@
    基本レイアウト
 ===================== */
 main, form {
-  padding-bottom: 80px; /* フッターの高さ分だけ余白を追加 */
+  padding-bottom: 240px; /* フッターの高さ分だけ余白を追加 */
 }
 
 body {
@@ -29,6 +29,7 @@ body {
   padding: 40px 20px;
   text-align: center;
   line-height: 1.6;
+  padding-bottom: 120px; /* フッターの高さ分だけ余白を追加 */
 }
 
 /* =====================
