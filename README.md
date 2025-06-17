@@ -2,13 +2,6 @@
 
 画像スタイル変換モデルを活用したWebアプリケーションです。ユーザーがアップロードした画像を、用意されたスタイル画像やユーザー指定のスタイル画像に変換することができます。
 
-## 🔗 プロジェクトリンク
-
-- GitHub: [https://github.com/TatsuyaTakigawa/WebApp3](https://github.com/TatsuyaTakigawa/WebApp3)
-- 使用モデル: [Arbitrary Image Stylization (TensorFlow Hub)](https://www.kaggle.com/models/google/arbitrary-image-stylization-v1/code)
-
----
-
 ## 🖼️ 概要
 
 本アプリは以下のような機能を提供します：
