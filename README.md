@@ -36,7 +36,7 @@ cd WebApp3
 
 ```bash
 python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+source ./venv/bin/activate  # Windows: .\venv\Scripts\activate
 ```
 
 3. 必要なパッケージのインストール
