@@ -2,73 +2,82 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>スタイル変換WEBアプリ</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <title>画像スタイル変換 Webアプリ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 <body>
-  <h1>画像スタイル変換WEBアプリ</h1>
-  
-  <div class="description">
-    <p>
-      このアプリは、<strong>画像のスタイル変換</strong>を行うWebツールです。<br>
-      あなたのアップロードした画像に、指定したスタイル画像の見た目を適用し、まるで別の絵画や作品のように変換します。
-    </p>
-    <p>
-      例えば、<em>風景写真</em>をアップロードし、<strong>浮世絵</strong>スタイルを選ぶと、<strong>浮世絵風の風景画</strong>が生成されます。
-    </p>
-    <p>
-      スタイルは、下のラジオボタンから既存のものを選ぶか、ご自身のスタイル画像をアップロードすることもできます。<br>
-      ※ アップロードしたスタイル画像がある場合、そちらが優先されます。
-    </p>
-  </div>
+  <header>
+    <h1>画像スタイル変換 Webアプリ</h1>
+  </header>
 
-  <form method="POST" enctype="multipart/form-data">
-    <h3>1. 変換したい画像をアップロード</h3>
-    <label class="custom-file-upload" id="label_content">
-      ファイルを選択
-      <input type="file" name="content_image" accept="image/*" id="content_image_input" required />
-    </label>
-    <div id="content_preview"></div>
+  <main>
+    <section class="description">
+      <p>
+        このアプリは、<strong>画像のスタイル変換</strong>を行うWebツールです。<br>
+        アップロードした画像に、指定したスタイル画像の見た目を適用して変換します。
+      </p>
+      <p>
+        例えば、<em>風景写真</em>に<strong>浮世絵</strong>スタイルを選ぶと、<strong>浮世絵風の風景画</strong>が生成されます。
+      </p>
+      <p>
+        スタイルは下のラジオボタンから選ぶか、ご自身のスタイル画像をアップロードできます。<br>
+        <strong>※ アップロード画像がある場合、そちらが優先されます。</strong>
+      </p>
+    </section>
 
-    <h3>2. スタイル画像を選択（既存）またはアップロード（任意）</h3>
-    <div class="style-list">
-      {% for filename, display_name in styles.items() %}
-        <label>
-          <input type="radio" name="style_image" value="{{ filename }}" />
-          {{ display_name }}
+    <form method="POST" enctype="multipart/form-data" novalidate>
+      <!-- アップロード画像 -->
+      <section>
+        <h2 class="section-title">1. 変換したい画像をアップロード</h2>
+        <label class="custom-file-upload file-upload-label" id="label_content">
+          ファイルを選択
+          <input type="file" name="content_image" accept="image/*" id="content_image_input" required>
         </label>
-      {% endfor %}
+        <div id="content_preview" class="image-preview"></div>
+      </section>
+
+      <!-- スタイル選択 -->
+      <section>
+        <h2 class="section-title">2. スタイル画像を選択（既存）またはアップロード（任意）</h2>
+        
+        <fieldset class="style-list">
+          <legend>スタイル一覧（既存）</legend>
+          {% for filename, display_name in styles.items() %}
+            <label>
+              <input type="radio" name="style_image" value="{{ filename }}">
+              {{ display_name }}
+            </label>
+          {% endfor %}
+        </fieldset>
+
+        <p>または</p>
+
+        <label class="custom-file-upload file-upload-label" id="label_style">
+          スタイル画像をアップロード
+          <input type="file" name="style_image_upload" accept="image/*" id="style_image_input">
+        </label>
+        <div id="style_preview" class="image-preview"></div>
+
+        <p><small>※ アップロードされたスタイル画像が優先されます。</small></p>
+      </section>
+
+      <!-- 実行ボタン -->
+      <div class="form-actions">
+        <button type="submit" class="convert-button">スタイル変換を実行</button>
+      </div>
+    </form>
+
+    <!-- ローディング表示 -->
+    <div id="loading_message" style="display: none;">
+      変換中です... しばらくお待ちください。
     </div>
+  </main>
 
-    <p>または</p>
+  <footer>
+    <p>&copy; 2025 スタイル変換Webアプリ</p>
+  </footer>
 
-    <label class="custom-file-upload" id="label_style">
-      スタイル画像をアップロード
-      <input type="file" name="style_image_upload" accept="image/*" id="style_image_input" />
-    </label>
-    <div id="style_preview"></div>
-
-    <p><small>アップロードしたスタイル画像を優先して使用します。</small></p>
-
-    <button type="submit">スタイル変換実行</button>
-  </form>
-
-  {% if content_image %}
-    <h3>アップロード画像</h3>
-    <img src="{{ content_image }}" alt="アップロード画像" />
-  {% endif %}
-
-  {% if style_image %}
-    <h3>使用したスタイル画像</h3>
-    <img src="{{ style_image }}" alt="スタイル画像" />
-  {% endif %}
-
-  {% if output_image %}
-    <h3>変換後の画像</h3>
-    <img src="{{ output_image }}" alt="変換後画像" />
-  {% endif %}
-
-  <!-- プレビュー処理用JavaScript -->
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
 </html>
