@@ -59,7 +59,7 @@ python app.py
 
 ## 🎥 デモ動画
 
-<iframe src="https://drive.google.com/file/d/1nSPqH5NagnduPHmcekPDmSk4k--dPyc1/preview" width="640" height="360" allow="autoplay"></iframe>
+▶️ [こちらのデモページで動画を再生](https://TatsuyaTakigawa.github.io/WebApp3/)
 
 ---
 
