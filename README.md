@@ -57,6 +57,12 @@ python app.py
 
 ---
 
+## 🎥 デモ動画
+
+<iframe src="https://drive.google.com/file/d/1nSPqH5NagnduPHmcekPDmSk4k--dPyc1/preview" width="640" height="360" allow="autoplay"></iframe>
+
+---
+
 ## 🧠 使用モデルについて
 
 TensorFlow Hub で提供されている [Arbitrary Image Stylization v1](https://www.kaggle.com/models/google/arbitrary-image-stylization-v1/code) モデルを使用しています。
